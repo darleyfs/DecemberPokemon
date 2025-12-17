@@ -96,6 +96,7 @@ public:
 		ui.DisplayMessage("OAK", "WHAT THE F%*$ ARE YOU DOING?!");
 		ui.DisplayMessage("OAK", "There are BUGS in that grass!");
 		ui.DisplayMessage("OAK", "Bugs are like SUPER dangerous in this world!");
+		ui.DisplayMessage("OAK", "Come with me back to my lab. I have something you'll need...");
 	}
 
 	void SelectPokemon(Trainer& player, Trainer& rival) {
@@ -153,6 +154,12 @@ public:
 			break;
 		default:
 			break;
-		}	
+		}
+
+		ui.DisplayMessage(rival.GetName(), "Hey, jerk! FIGHT ME!\n  (And by me I mean this animal I just grabbed...");
+	}
+
+	void RivalBattle(Trainer& player, Trainer& rival) {
+
 	}
 };
