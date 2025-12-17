@@ -8,10 +8,8 @@ public:
 
 	}
 
-	Trainer Introduction() {
+	void Introduction(Trainer& player, Trainer& rival) {
 		UI ui;
-		Trainer player;
-		Trainer rival;
 
 		ui.DisplayMessage("Welcome to the Wonderful World of Pokemon!");
 		ui.DisplayMessage("OAK", "Pokemon are like normal animals, but it's okay\n  to make them fight each other!");
@@ -32,8 +30,6 @@ public:
 		rival.SetName(rivalName);
 
 		ui.DisplayMessage("OAK", "Yea, f&%* " + rivalName + ". All my homies hate " + rivalName + ".");
-
-		return player;
 	}
 
 	void WakeUp(std::string playerName) {
@@ -102,7 +98,7 @@ public:
 		ui.DisplayMessage("OAK", "Bugs are like SUPER dangerous in this world!");
 	}
 
-	void SelectPokemon(Trainer player) {
+	void SelectPokemon(Trainer& player, Trainer& rival) {
 		UI ui;
 		
 		Pokemon charmander("Charmander", 5, 18, 18, 10, 9, 10, Type::FIRE, Type::NONE);

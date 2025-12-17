@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="Pokemon.hpp" />
     <ClInclude Include="Trainer.hpp" />
