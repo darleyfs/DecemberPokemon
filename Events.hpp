@@ -99,51 +99,60 @@ public:
 	}
 
 	void SelectPokemon(Trainer& player, Trainer& rival) {
+		// Initialize UI object
 		UI ui;
-		
+
+		// Initialize Pokemon objects
 		Pokemon charmander("Charmander", 5, 18, 18, 10, 9, 10, Type::FIRE, Type::NONE);
 		Pokemon bulbasaur("Bulbasaur", 5, 19, 19, 11, 11, 13, Type::GRASS, Type::POISON);
 		Pokemon squirtle("Squirtle", 5, 19, 19, 11, 13, 11, Type::WATER, Type::GRASS);
+
+		// Initialize move objects
 		Move scratch("Scratch", Type::NORMAL, 40, 1, 35, 35);
 		Move tackle("Tackle", Type::NORMAL, 40, 1, 35, 35);
 
+		// Add moves to respective pokemon
 		charmander.LearnMove(scratch);
 		bulbasaur.LearnMove(scratch);
 		squirtle.LearnMove(tackle);
 
-		ui.DisplayMessage(player.GetName() + " enters into Prof OAKs weird lab...");
-		ui.DisplayMessage("OAK", "Welcome to my lab!");
-		ui.DisplayMessage("OAK", "I've selected 3 invasive species for you to choose from!");
-
+		// Initialize menuOptions with Pokemon names
 		std::vector<std::string> menuOptions = {
 			charmander.GetName(),
 			bulbasaur.GetName(),
 			squirtle.GetName()
 		};
 
+		// Initial menu selection placeholder
 		int choice = 0;
 
-		// do {
-			choice = ui.PromptUserWithMenu("Choose a Pokemon", menuOptions);
+		// Dialogue tree
+		ui.DisplayMessage(player.GetName() + " enters into Prof OAKs weird lab...");
+		ui.DisplayMessage("OAK", "Welcome to my lab!");
+		ui.DisplayMessage("OAK", "I've selected 3 invasive species for you to choose from!");
 
-			switch (choice) {
-			case 1:
-				// Charmander;
-				player.AddPokemonToTeam(charmander);
-				break;
-			case 2:
-				// Bulbasaur;
-				player.AddPokemonToTeam(bulbasaur);
-				break;
-			case 3:
-				// Squirtle
-				player.AddPokemonToTeam(squirtle);
-				break;
-			default:
-				break;
-			}
+		// Prompt user for selection
+		choice = ui.PromptUserWithMenu("Choose a Pokemon", menuOptions);
 
-		// }while(choice < 1 || choice > menuOptions.size());
-	
+		// Add pokemon based on the selection
+		switch (choice) {
+		case 1:
+			// Charmander;
+			player.AddPokemonToTeam(charmander);
+			rival.AddPokemonToTeam(squirtle);
+			break;
+		case 2:
+			// Bulbasaur;
+			player.AddPokemonToTeam(bulbasaur);
+			rival.AddPokemonToTeam(charmander);
+			break;
+		case 3:
+			// Squirtle
+			player.AddPokemonToTeam(squirtle);
+			rival.AddPokemonToTeam(bulbasaur);
+			break;
+		default:
+			break;
+		}	
 	}
 };
