@@ -22,6 +22,10 @@ public:
 		return name;
 	}
 
+	std::vector<Pokemon> GetTeam() {
+		return team;
+	}
+
 	void SetName(std::string _name) {
 		if (_name != "") {
 			name = _name;
