@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "Trainer.hpp"
 #include "UI.hpp"
 
@@ -6,6 +7,12 @@ class Battle {
 	Trainer player;
 	Trainer trainer;
 	UI ui;
+
+	enum Result {
+		WIN,
+		LOSE,
+		CONTINUE
+	};
 
 public:
 	Battle(Trainer& _player, Trainer _trainer) {
@@ -16,27 +23,37 @@ public:
 
 	void Start() {		
 		// Grab first Pokemon from both trainers
+		// TODO: Make these references BACK TO the trainer team
 		Pokemon playerPokemon = GetFirstPokemonWithHealth(player);
 		Pokemon rivalPokemon = GetFirstPokemonWithHealth(trainer);
+		
 		// TODO: Coin flip
-
+		int turn = CoinFlip();
 
 		// Dialogue
 		ui.DisplayMessage(trainer.GetName() + " approaches!");
 		ui.DisplayMessage(player.GetName() + " calls " + playerPokemon.GetName() + "!");
 		ui.DisplayMessage(trainer.GetName() + " calls " + trainer.GetName() + "!");
 
+		do {
+			// TODO: Loop so long as either trainer has any pokemon with health
 
-		// While Loop
-		// TODO: Loop so long as either trainer has any pokemon with health
+			if (turn == 1) {
+				// TODO: On player turn, display a menu of options
+					// TODO: On FIGHT, display a menu of moves from the current pokemon
+					// TODO: On USE MOVE, calculate damage
 
-		// TODO: On player turn, display a menu of options
-			// TODO: On FIGHT, display a menu of moves from the current pokemon
-			// TODO: On USE MOVE, calculate damage
-		// TODO: On trainer turn, 
-			// TODO: select the first move, from the current pokemon
-			// TODO: Calculate damage
-		// TODO: Do some kind of check to see if the battle is over
+				turn = 2;
+			} else {
+				// TODO: On trainer turn, 
+					// TODO: select the first move, from the current pokemon
+					// TODO: Calculate damage
+				turn = 1;
+			}
+
+		// Check to see if the battle is over
+		} while (CheckWin() == Result::CONTINUE);
+
 	}
 
 	Pokemon GetFirstPokemonWithHealth(Trainer trainer) {
@@ -63,5 +80,30 @@ public:
 
 		// Return Pokemon
 		return pokemon;
+	}
+
+	Result CheckWin() {
+		Result result = Result::CONTINUE;
+		Pokemon playerPokemon = GetFirstPokemonWithHealth(player);
+		Pokemon trainerPokemon = GetFirstPokemonWithHealth(trainer);
+
+		if (playerPokemon.GetType1() == Type::NONE) {
+			result = Result::LOSE;
+		}
+		else if (trainerPokemon.GetType1() == Type::NONE) {
+			result = Result::WIN;
+		}
+
+		return result;
+	}
+
+	int CoinFlip() {
+		std::random_device device;		// Object for creating random numbers
+
+		std::mt19937 generator(device()); // Creating our seed
+
+		std::uniform_int_distribution<> distribution(1, 2); // Define a range
+
+		return distribution(generator);
 	}
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "UI.hpp"
 #include "Trainer.hpp"
+#include "Battle.hpp"
 
 class Events {
 public:
@@ -160,6 +161,7 @@ public:
 	}
 
 	void RivalBattle(Trainer& player, Trainer& rival) {
-
+		Battle battle(player, rival);
+		battle.Start();
 	}
 };
